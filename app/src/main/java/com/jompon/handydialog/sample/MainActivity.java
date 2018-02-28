@@ -26,7 +26,6 @@ import android.widget.Toast;
 import com.jompon.handydialog.HandyDialog;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
-        HandyDialog.OnDialogSimpleClickListener,
         HandyDialog.OnDialogConfirmClickListener,
         HandyDialog.OnDialogCancelClickListener,
         HandyDialog.OnDialogItemClickListener,
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnSimple;
     private Button btnConfirm;
     private Button btnList;
-    private Button btnMultiClick;
+    private Button btnMultiChoice;
     private Button btnGps;
     private Button btnPermission;
     private HandyDialog handyDialog;
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSimple = (Button) findViewById(R.id.btn_simple);
         btnConfirm = (Button) findViewById(R.id.btn_confirm);
         btnList = (Button) findViewById(R.id.btn_list);
-        btnMultiClick = (Button) findViewById(R.id.btn_multi_click);
+        btnMultiChoice = (Button) findViewById(R.id.btn_multi_choice);
         btnGps = (Button) findViewById(R.id.btn_gps);
         btnPermission = (Button) findViewById(R.id.btn_permission);
     }
@@ -66,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         list = getResources().getStringArray(R.array.list);
         checkedItems = new boolean[list.length];
         handyDialog = new HandyDialog(this);
-        handyDialog.setOnDialogSimpleClickListener(this);
         handyDialog.setOnDialogConfirmClickListener(this);
         handyDialog.setOnDialogCancelClickListener(this);
         handyDialog.setOnDialogItemClickListener(this);
@@ -74,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSimple.setOnClickListener(this);
         btnConfirm.setOnClickListener(this);
         btnList.setOnClickListener(this);
-        btnMultiClick.setOnClickListener(this);
+        btnMultiChoice.setOnClickListener(this);
         btnGps.setOnClickListener(this);
         btnPermission.setOnClickListener(this);
     }
@@ -91,8 +89,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if( v == btnList ){
             handyDialog.alertListDialog(btnList.getId(), 0, "List Dialog", list);
         }
-        if( v == btnMultiClick ){
-            handyDialog.alertMultiClickDialog(btnMultiClick.getId(), 0, "Multi Click Dialog", list, checkedItems, R.string.button_ok);
+        if( v == btnMultiChoice ){
+            handyDialog.alertMultiClickDialog(btnMultiChoice.getId(), 0, "Multi Click Dialog", list, checkedItems, R.string.button_ok);
         }
         if( v == btnGps ){
             handyDialog.alertGPSDialog(android.R.drawable.ic_dialog_alert, "GPS Dialog", "Please open Gps", R.string.button_setting);
@@ -103,20 +101,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onSimple(int id) {
+    public void onConfirm(int id) {
 
         if( id == btnSimple.getId() ){
             Toast.makeText(this, "Click Simple", Toast.LENGTH_LONG).show();
         }
-    }
-
-    @Override
-    public void onConfirm(int id) {
-
         if( id == btnConfirm.getId() ){
             Toast.makeText(this, "Click Confirm!!", Toast.LENGTH_LONG).show();
         }
-        if( id == btnMultiClick.getId() ){
+        if( id == btnMultiChoice.getId() ){
             Toast.makeText(this, "MultiClick Confirm!!", Toast.LENGTH_LONG).show();
         }
     }
@@ -127,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if( id == btnConfirm.getId() ){
             Toast.makeText(this, "Click Cancel!!", Toast.LENGTH_LONG).show();
         }
-        if( id == btnMultiClick.getId() ){
+        if( id == btnMultiChoice.getId() ){
             Toast.makeText(this, "btnMultiClick Cancel!!", Toast.LENGTH_LONG).show();
         }
     }
@@ -143,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onChecked(int id, int which, boolean isChecked) {
 
-        if( id == btnMultiClick.getId() ){
+        if( id == btnMultiChoice.getId() ){
             Toast.makeText(this, list[which]+" = "+checkedItems[which], Toast.LENGTH_LONG).show();
         }
     }

@@ -33,16 +33,10 @@ public class HandyDialog {
     private AlertDialog.Builder multiChoice;
     private AlertDialog.Builder gps;
     private AlertDialog.Builder permission;
-    private OnDialogSimpleClickListener onDialogSimpleClickListener;
     private OnDialogConfirmClickListener onDialogConfirmClickListener;
     private OnDialogCancelClickListener onDialogCancelClickListener;
     private OnDialogItemClickListener onDialogItemClickListener;
     private OnDialogMultiChoiceListener onDialogMultiChoiceListener;
-
-    public interface OnDialogSimpleClickListener{
-
-        void onSimple(int id);
-    }
 
     public interface OnDialogConfirmClickListener{
 
@@ -62,11 +56,6 @@ public class HandyDialog {
     public interface  OnDialogMultiChoiceListener{
 
         void onChecked(int id, int which, boolean isChecked);
-    }
-
-    public void setOnDialogSimpleClickListener(OnDialogSimpleClickListener onDialogSimpleClickListener)
-    {
-        this.onDialogSimpleClickListener = onDialogSimpleClickListener;
     }
 
     public void setOnDialogConfirmClickListener(OnDialogConfirmClickListener onDialogConfirmClickListener)
@@ -135,8 +124,8 @@ public class HandyDialog {
             public void onClick(DialogInterface dialog, int which) {
 
                 dialog.dismiss();
-                if (onDialogSimpleClickListener != null)
-                    onDialogSimpleClickListener.onSimple(id);
+                if (onDialogConfirmClickListener != null)
+                    onDialogConfirmClickListener.onConfirm(id);
             }
         });
         simple.setOnDismissListener(new DialogInterface.OnDismissListener() {
