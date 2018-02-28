@@ -23,6 +23,12 @@
         android:text="List" />
 
     <Button
+        android:id="@+id/btn_multi_click"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Multi Click" />
+
+    <Button
         android:id="@+id/btn_gps"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

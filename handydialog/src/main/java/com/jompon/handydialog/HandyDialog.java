@@ -27,19 +27,21 @@ import android.support.v7.app.AlertDialog;
 public class HandyDialog {
 
     private Context context;
-    private AlertDialog.Builder gps;
-    private AlertDialog.Builder confirm;
-    private AlertDialog.Builder permission;
     private AlertDialog.Builder simple;
+    private AlertDialog.Builder confirm;
     private AlertDialog.Builder list;
-    private OnDialogItemClickListener onDialogItemClickListener;
+    private AlertDialog.Builder multiChoice;
+    private AlertDialog.Builder gps;
+    private AlertDialog.Builder permission;
+    private OnDialogSimpleClickListener onDialogSimpleClickListener;
     private OnDialogConfirmClickListener onDialogConfirmClickListener;
     private OnDialogCancelClickListener onDialogCancelClickListener;
-    private OnDialogSimpleClickListener onDialogSimpleClickListener;
+    private OnDialogItemClickListener onDialogItemClickListener;
+    private OnDialogMultiChoiceListener onDialogMultiChoiceListener;
 
-    public interface  OnDialogItemClickListener{
+    public interface OnDialogSimpleClickListener{
 
-        void onItem(int id, int which);
+        void onSimple(int id);
     }
 
     public interface OnDialogConfirmClickListener{
@@ -52,14 +54,19 @@ public class HandyDialog {
         void onCancel(int id);
     }
 
-    public interface OnDialogSimpleClickListener{
+    public interface  OnDialogItemClickListener{
 
-        void onSimple(int id);
+        void onItem(int id, int which);
     }
 
-    public void setOnDialogItemClickListener(OnDialogItemClickListener onDialogItemClickListener)
+    public interface  OnDialogMultiChoiceListener{
+
+        void onChecked(int id, int which, boolean isChecked);
+    }
+
+    public void setOnDialogSimpleClickListener(OnDialogSimpleClickListener onDialogSimpleClickListener)
     {
-        this.onDialogItemClickListener = onDialogItemClickListener;
+        this.onDialogSimpleClickListener = onDialogSimpleClickListener;
     }
 
     public void setOnDialogConfirmClickListener(OnDialogConfirmClickListener onDialogConfirmClickListener)
@@ -72,14 +79,177 @@ public class HandyDialog {
         this.onDialogCancelClickListener = onDialogCancelClickListener;
     }
 
-    public void setOnDialogSimpleClickListener(OnDialogSimpleClickListener onDialogSimpleClickListener)
+    public void setOnDialogItemClickListener(OnDialogItemClickListener onDialogItemClickListener)
     {
-        this.onDialogSimpleClickListener = onDialogSimpleClickListener;
+        this.onDialogItemClickListener = onDialogItemClickListener;
+    }
+
+    public void setOnDialogMultiChoiceListener(OnDialogMultiChoiceListener onDialogMultiChoiceListener)
+    {
+        this.onDialogMultiChoiceListener = onDialogMultiChoiceListener;
     }
 
     public HandyDialog(Context context)
     {
         this.context = context;
+    }
+
+    public void alertSimpleDialog(int resIcon, String title, String message, int positiveButton)
+    {
+        if( simple != null )      return;
+
+        simple = new AlertDialog.Builder(context);
+        simple.setIcon(resIcon);
+        simple.setTitle(title);
+        simple.setMessage(message);
+        simple.setCancelable(false);
+        simple.setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+            }
+        });
+        simple.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+
+                simple = null;
+            }
+        });
+        AlertDialog dialog = simple.create();
+        dialog.show();
+    }
+
+    public void alertSimpleDialog(final int id, int resIcon, String title, String message, int positiveButton)
+    {
+        if( simple != null )      return;
+
+        simple = new AlertDialog.Builder(context);
+        simple.setIcon(resIcon);
+        simple.setTitle(title);
+        simple.setMessage(message);
+        simple.setCancelable(false);
+        simple.setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+                if (onDialogSimpleClickListener != null)
+                    onDialogSimpleClickListener.onSimple(id);
+            }
+        });
+        simple.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+
+                simple = null;
+            }
+        });
+        AlertDialog dialog = simple.create();
+        dialog.show();
+    }
+
+    public void alertConfirmDialog(final int id, int resIcon, String title, String message, int positiveButton, int negativeButton)
+    {
+        if( confirm != null )      return;
+
+        confirm = new AlertDialog.Builder(context);
+        confirm.setIcon(resIcon);
+        confirm.setTitle(title);
+        confirm.setMessage(message);
+        confirm.setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+                if (onDialogConfirmClickListener != null)
+                    onDialogConfirmClickListener.onConfirm(id);
+            }
+        });
+        confirm.setNegativeButton(negativeButton, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+                if (onDialogCancelClickListener != null)
+                    onDialogCancelClickListener.onCancel(id);
+            }
+        });
+        confirm.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+
+                confirm = null;
+            }
+        });
+        AlertDialog dialog = confirm.create();
+        dialog.show();
+    }
+
+    public void alertListDialog(final int id, int resIcon, String title, String[] items)
+    {
+        if( list != null )         return;
+
+        list = new AlertDialog.Builder(context);
+        list.setIcon(resIcon);
+        list.setTitle(title);
+        list.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+                if( onDialogItemClickListener != null )
+                    onDialogItemClickListener.onItem(id, which);
+            }
+        });
+        list.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+
+                list = null;
+            }
+        });
+        AlertDialog dialog = list.create();
+        dialog.show();
+    }
+
+    public void alertMultiClickDialog(final int id, int resIcon, String title, String[] items, boolean[] checkedItems, int positiveButton)
+    {
+        if( multiChoice != null )         return;
+
+        multiChoice = new AlertDialog.Builder(context);
+        multiChoice.setIcon(resIcon);
+        multiChoice.setTitle(title);
+        multiChoice.setCancelable(false);
+        multiChoice.setMultiChoiceItems(items, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
+                if( onDialogMultiChoiceListener != null )
+                    onDialogMultiChoiceListener.onChecked(id, which, isChecked);
+            }
+        });
+        multiChoice.setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+                if (onDialogConfirmClickListener != null)
+                    onDialogConfirmClickListener.onConfirm(id);
+            }
+        });
+        multiChoice.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+
+                multiChoice = null;
+            }
+        });
+        AlertDialog dialog = multiChoice.create();
+        dialog.show();
     }
 
     public void alertGPSDialog(int resIcon, String title, String message, int positiveButton)
@@ -144,130 +314,12 @@ public class HandyDialog {
         dialog.show();
     }
 
-    public void alertListDialog(final int id, int resIcon, String title, String[] items)
-    {
-        if( list != null )         return;
-
-        list = new AlertDialog.Builder(context);
-        list.setIcon(resIcon);
-        list.setTitle(title);
-        list.setItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                dialog.dismiss();
-                if( onDialogItemClickListener != null )
-                    onDialogItemClickListener.onItem(id, which);
-            }
-        });
-        list.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-
-                list = null;
-            }
-        });
-        AlertDialog dialog = list.create();
-        dialog.show();
-    }
-
-    public void alertConfirmDialog(final int id, int resIcon, String title, String message, int positiveButton, int negativeButton)
-    {
-        if( confirm != null )      return;
-
-        confirm = new AlertDialog.Builder(context);
-        confirm.setIcon(resIcon);
-        confirm.setTitle(title);
-        confirm.setMessage(message);
-        confirm.setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                dialog.dismiss();
-                if (onDialogConfirmClickListener != null)
-                    onDialogConfirmClickListener.onConfirm(id);
-            }
-        });
-        confirm.setNegativeButton(negativeButton, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                dialog.dismiss();
-                if (onDialogCancelClickListener != null)
-                    onDialogCancelClickListener.onCancel(id);
-            }
-        });
-        confirm.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-
-                confirm = null;
-            }
-        });
-        AlertDialog dialog = confirm.create();
-        dialog.show();
-    }
-
-    public void alertSimpleDialog(int resIcon, String title, String message, int positiveButton)
-    {
-        if( simple != null )      return;
-
-        simple = new AlertDialog.Builder(context);
-        simple.setIcon(resIcon);
-        simple.setTitle(title);
-        simple.setMessage(message);
-        simple.setCancelable(false);
-        simple.setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                dialog.dismiss();
-            }
-        });
-        simple.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-
-                simple = null;
-            }
-        });
-        AlertDialog dialog = simple.create();
-        dialog.show();
-    }
-
-    public void alertSimpleDialog(final int id, int resIcon, String title, String message, int positiveButton)
-    {
-        if( simple != null )      return;
-
-        simple = new AlertDialog.Builder(context);
-        simple.setIcon(resIcon);
-        simple.setTitle(title);
-        simple.setMessage(message);
-        simple.setCancelable(false);
-        simple.setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                dialog.dismiss();
-                if (onDialogSimpleClickListener != null)
-                    onDialogSimpleClickListener.onSimple(id);
-            }
-        });
-        simple.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-
-                simple = null;
-            }
-        });
-        AlertDialog dialog = simple.create();
-        dialog.show();
-    }
-
     public void clear( )
     {
         gps = null;
         permission = null;
+        multiChoice = null;
+        list = null;
         confirm = null;
         simple = null;
     }
