@@ -4,4 +4,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/btn_simple"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Simple" />
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm" />
+
+    <Button
+        android:id="@+id/btn_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="List" />
+
+    <Button
+        android:id="@+id/btn_gps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gps" />
+
+    <Button
+        android:id="@+id/btn_permission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Permission" />
 </LinearLayout>

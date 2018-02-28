@@ -19,12 +19,108 @@ package com.jompon.handydialog.sample;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import com.jompon.handydialog.HandyDialog;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,
+        HandyDialog.OnDialogSimpleClickListener,
+        HandyDialog.OnDialogConfirmClickListener,
+        HandyDialog.OnDialogCancelClickListener,
+        HandyDialog.OnDialogItemClickListener {
+
+    private Button btnSimple;
+    private Button btnConfirm;
+    private Button btnList;
+    private Button btnGps;
+    private Button btnPermission;
+    private HandyDialog handyDialog;
+    private String[] list;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        bindingView();
+        bindingData();
+    }
+
+    private void bindingView( )
+    {
+        btnSimple = (Button) findViewById(R.id.btn_simple);
+        btnConfirm = (Button) findViewById(R.id.btn_confirm);
+        btnList = (Button) findViewById(R.id.btn_list);
+        btnGps = (Button) findViewById(R.id.btn_gps);
+        btnPermission = (Button) findViewById(R.id.btn_permission);
+    }
+
+    private void bindingData( )
+    {
+        list = getResources().getStringArray(R.array.list);
+        handyDialog = new HandyDialog(this);
+        handyDialog.setOnDialogSimpleClickListener(this);
+        handyDialog.setOnDialogConfirmClickListener(this);
+        handyDialog.setOnDialogCancelClickListener(this);
+        handyDialog.setOnDialogItemClickListener(this);
+        btnSimple.setOnClickListener(this);
+        btnConfirm.setOnClickListener(this);
+        btnList.setOnClickListener(this);
+        btnGps.setOnClickListener(this);
+        btnPermission.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if( v == btnSimple ){
+            handyDialog.alertSimpleDialog(btnSimple.getId(), 0, "Simple Dialog", "Message", R.string.button_ok);
+        }
+        if( v == btnConfirm ){
+            handyDialog.alertConfirmDialog(btnConfirm.getId(), 0, "Confirm Dialog", "Message", R.string.button_ok, R.string.button_cancel);
+        }
+        if( v == btnList ){
+            handyDialog.alertListDialog(btnList.getId(), 0, "List Dialog", list);
+        }
+        if( v == btnGps ){
+            handyDialog.alertGPSDialog(android.R.drawable.ic_dialog_alert, "GPS Dialog", "Please open Gps", R.string.button_setting);
+        }
+        if( v == btnPermission ){
+            handyDialog.alertPermissionDialog(android.R.drawable.ic_dialog_alert, "Permission Dialog", "Please allowed permission", R.string.button_setting);
+        }
+    }
+
+    @Override
+    public void onSimple(int id) {
+
+        if( id == btnSimple.getId() ){
+            Toast.makeText(this, "Click Simple", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onConfirm(int id) {
+
+        if( id == btnConfirm.getId() ){
+            Toast.makeText(this, "Click Confirm!!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onCancel(int id) {
+
+        if( id == btnConfirm.getId() ){
+            Toast.makeText(this, "Click Cancel!!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onItem(int id, int which) {
+
+        if( id == btnList.getId() ){
+            Toast.makeText(this, list[which], Toast.LENGTH_LONG).show();
+        }
     }
 }
