@@ -103,17 +103,17 @@ public class HandyDialog {
      */
     public void alertSimpleDialog(String title, String message, @StringRes int positiveButton)
     {
-        alertSimpleDialog(0, title, message, positiveButton);
+        alertSimpleDialog(title, message, 0, positiveButton);
     }
 
     /**
      * Show simple alert dialog.
-     * @param resIcon drawable or mipmap resource
      * @param title source
      * @param message source
+     * @param resIcon drawable or mipmap resource
      * @param positiveButton string resource
      */
-    public void alertSimpleDialog(@DrawableRes int resIcon, String title, String message, @StringRes int positiveButton)
+    public void alertSimpleDialog(String title, String message, @DrawableRes int resIcon, @StringRes int positiveButton)
     {
         if( simple != null )      return;
 
@@ -160,18 +160,18 @@ public class HandyDialog {
      */
     public void alertSimpleDialog(final long id, String title, String message, @StringRes int positiveButton)
     {
-        alertSimpleDialog(id, 0, title, message, positiveButton);
+        alertSimpleDialog(id, title, message, 0, positiveButton);
     }
 
     /**
      * Show simple alert dialog with confirm listener.
      * @param id need to tag
-     * @param resIcon drawable or mipmap resource
      * @param title source
      * @param message source
+     * @param resIcon drawable or mipmap resource
      * @param positiveButton string resource
      */
-    public void alertSimpleDialog(final long id, @DrawableRes int resIcon, String title, String message, @StringRes int positiveButton)
+    public void alertSimpleDialog(final long id, String title, String message, @DrawableRes int resIcon, @StringRes int positiveButton)
     {
         if( simple != null )      return;
 
@@ -222,19 +222,19 @@ public class HandyDialog {
      */
     public void alertConfirmDialog(final long id, String title, String message, @StringRes int positiveButton, @StringRes int negativeButton)
     {
-        alertConfirmDialog(id, 0, title, message, positiveButton, negativeButton);
+        alertConfirmDialog(id, title, message, 0, positiveButton, negativeButton);
     }
 
     /**
      * Show confirm alert dialog with confirm listener.
      * @param id need to tag
-     * @param resIcon drawable or mipmap resource
      * @param title source
      * @param message source
+     * @param resIcon drawable or mipmap resource
      * @param positiveButton string resource
      * @param negativeButton string resource
      */
-    public void alertConfirmDialog(final long id, @DrawableRes int resIcon, String title, String message, @StringRes int positiveButton, @StringRes int negativeButton)
+    public void alertConfirmDialog(final long id, String title, String message, @DrawableRes int resIcon, @StringRes int positiveButton, @StringRes int negativeButton)
     {
         if( confirm != null )      return;
 
@@ -289,17 +289,17 @@ public class HandyDialog {
      */
     public void alertListDialog(final long id, String title, String[] items)
     {
-        alertListDialog(id, 0, title, items);
+        alertListDialog(id, title, items, 0);
     }
 
     /**
      * Show list alert dialog with item listener.
      * @param id need to tag
-     * @param resIcon drawable or mipmap resource
      * @param title source
      * @param items source
+     * @param resIcon drawable or mipmap resource
      */
-    public void alertListDialog(final long id, @DrawableRes int resIcon, String title, String[] items)
+    public void alertListDialog(final long id, String title, String[] items, @DrawableRes int resIcon)
     {
         if( list != null )         return;
 
@@ -329,6 +329,7 @@ public class HandyDialog {
     /**
      * Show multi choice alert dialog with multi choice listener.
      * @param id need to tag
+     * @param items source
      * @param checkedItems source
      * @param positiveButton string resource
      */
@@ -341,23 +342,24 @@ public class HandyDialog {
      * Show multi choice alert dialog with multi choice listener.
      * @param id need to tag
      * @param title source
+     * @param items source
      * @param checkedItems source
      * @param positiveButton string resource
      */
     public void alertMultiChoiceDialog(final long id, String title, String[] items, boolean[] checkedItems, @StringRes int positiveButton)
     {
-        alertMultiChoiceDialog(id, 0, title, items, checkedItems, positiveButton);
+        alertMultiChoiceDialog(id, title, items, checkedItems, 0, positiveButton);
     }
 
     /**
      * Show multi choice alert dialog with multi choice listener.
      * @param id need to tag
-     * @param resIcon drawable or mipmap resource
      * @param title source
      * @param checkedItems source
+     * @param resIcon drawable or mipmap resource
      * @param positiveButton string resource
      */
-    public void alertMultiChoiceDialog(final long id, @DrawableRes int resIcon, String title, String[] items, boolean[] checkedItems, @StringRes int positiveButton)
+    public void alertMultiChoiceDialog(final long id, String title, String[] items, boolean[] checkedItems, @DrawableRes int resIcon, @StringRes int positiveButton)
     {
         if( multiChoice != null )         return;
 
@@ -397,12 +399,12 @@ public class HandyDialog {
 
     /**
      * Show gps alert dialog with intent to gps setting
-     * @param resIcon drawable or mipmap resource
      * @param title source
      * @param message source
+     * @param resIcon drawable or mipmap resource
      * @param positiveButton string resource
      */
-    public void alertGPSDialog(@DrawableRes int resIcon, String title, String message, @StringRes int positiveButton)
+    public void alertGPSDialog(String title, String message, @DrawableRes int resIcon, @StringRes int positiveButton)
     {
         final LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         if ( gps != null || manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) || manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ) {
@@ -436,12 +438,12 @@ public class HandyDialog {
 
     /**
      * Show permission alert dialog with intent to permission setting
-     * @param resIcon drawable or mipmap resource
      * @param title source
      * @param message source
+     * @param resIcon drawable or mipmap resource
      * @param positiveButton string resource
      */
-    public void alertPermissionDialog(@DrawableRes int resIcon, String title, String message, @StringRes int positiveButton)
+    public void alertPermissionDialog(String title, String message, @DrawableRes int resIcon, @StringRes int positiveButton)
     {
         if( permission != null )      return;
 
@@ -476,11 +478,11 @@ public class HandyDialog {
      */
     public void clear( )
     {
+        simple = null;
+        confirm = null;
+        list = null;
+        multiChoice = null;
         gps = null;
         permission = null;
-        multiChoice = null;
-        list = null;
-        confirm = null;
-        simple = null;
     }
 }

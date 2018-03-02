@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
 
         if( v == btnSimple ){
-            handyDialog.alertSimpleDialog((long) btnSimple.getId(), "Simple Dialog", "Message", R.string.button_ok);
+            handyDialog.alertSimpleDialog(btnSimple.getId(), "Simple Dialog", "Message", R.string.button_ok);
         }
         if( v == btnConfirm ){
             handyDialog.alertConfirmDialog(btnConfirm.getId(), "Confirm Dialog", "Message", R.string.button_ok, R.string.button_cancel);
@@ -93,10 +93,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             handyDialog.alertMultiChoiceDialog(btnMultiChoice.getId(), "Multi Choice Dialog", list, checkedItems, R.string.button_ok);
         }
         if( v == btnGps ){
-            handyDialog.alertGPSDialog(android.R.drawable.ic_dialog_alert, "GPS Dialog", "Please open Gps", R.string.button_setting);
+            handyDialog.alertGPSDialog("GPS Dialog", "Please open Gps", android.R.drawable.ic_dialog_alert, R.string.button_setting);
         }
         if( v == btnPermission ){
-            handyDialog.alertPermissionDialog(android.R.drawable.ic_dialog_alert, "Permission Dialog", "Please allowed permission", R.string.button_setting);
+            handyDialog.alertPermissionDialog("Permission Dialog", "Please allowed permission", android.R.drawable.ic_dialog_alert, R.string.button_setting);
         }
     }
 
