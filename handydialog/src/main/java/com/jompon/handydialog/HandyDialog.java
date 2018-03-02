@@ -143,6 +143,29 @@ public class HandyDialog {
     /**
      * Show simple alert dialog with confirm listener.
      * @param id need to tag
+     * @param message source
+     * @param positiveButton string resource
+     */
+    public void alertSimpleDialog(final long id, String message, @StringRes int positiveButton)
+    {
+        alertSimpleDialog(id, "", message, positiveButton);
+    }
+    
+    /**
+     * Show simple alert dialog with confirm listener.
+     * @param id need to tag
+     * @param title source
+     * @param message source
+     * @param positiveButton string resource
+     */
+    public void alertSimpleDialog(final long id, String title, String message, @StringRes int positiveButton)
+    {
+        alertSimpleDialog(id, 0, title, message, positiveButton);
+    }
+
+    /**
+     * Show simple alert dialog with confirm listener.
+     * @param id need to tag
      * @param resIcon drawable or mipmap resource
      * @param title source
      * @param message source
