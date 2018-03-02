@@ -81,16 +81,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
 
         if( v == btnSimple ){
-            handyDialog.alertSimpleDialog(btnSimple.getId(), "Simple Dialog", "Message", R.string.button_ok);
+            handyDialog.alertSimpleDialog(btnSimple.getId(), 0, "Simple Dialog", "Message", R.string.button_ok);
         }
         if( v == btnConfirm ){
-            handyDialog.alertConfirmDialog(btnConfirm.getId(), "Confirm Dialog", "Message", R.string.button_ok, R.string.button_cancel);
+            handyDialog.alertConfirmDialog(btnConfirm.getId(), 0, "Confirm Dialog", "Message", R.string.button_ok, R.string.button_cancel);
         }
         if( v == btnList ){
-            handyDialog.alertListDialog(btnList.getId(), "List Dialog", list);
+            handyDialog.alertListDialog(btnList.getId(), 0, "List Dialog", list);
         }
         if( v == btnMultiChoice ){
-            handyDialog.alertMultiChoiceDialog(btnMultiChoice.getId(), "Multi Click Dialog", list, checkedItems, R.string.button_ok);
+            handyDialog.alertMultiChoiceDialog(btnMultiChoice.getId(), 0, "Multi Click Dialog", list, checkedItems, R.string.button_ok);
         }
         if( v == btnGps ){
             handyDialog.alertGPSDialog(android.R.drawable.ic_dialog_alert, "GPS Dialog", "Please open Gps", R.string.button_setting);
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, "Click Confirm!!", Toast.LENGTH_LONG).show();
         }
         if( id == btnMultiChoice.getId() ){
-            Toast.makeText(this, "Click MultiChoice!!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "MultiClick Confirm!!", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, "Click Cancel!!", Toast.LENGTH_LONG).show();
         }
         if( id == btnMultiChoice.getId() ){
-            Toast.makeText(this, "MultiChoice Cancel!!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "btnMultiClick Cancel!!", Toast.LENGTH_LONG).show();
         }
     }
 
