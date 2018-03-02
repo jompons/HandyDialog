@@ -42,22 +42,22 @@ public class HandyDialog {
 
     public interface OnDialogConfirmClickListener{
 
-        void onConfirm(int id);
+        void onConfirm(long id);
     }
 
     public interface OnDialogCancelClickListener{
 
-        void onCancel(int id);
+        void onCancel(long id);
     }
 
     public interface  OnDialogItemClickListener{
 
-        void onItem(int id, int which);
+        void onItem(long id, int which);
     }
 
     public interface  OnDialogCheckListener{
 
-        void onChecked(int id, int which, boolean isChecked);
+        void onChecked(long id, int which, boolean isChecked);
     }
 
     public void setOnDialogConfirmClickListener(OnDialogConfirmClickListener onDialogConfirmClickListener)
@@ -148,7 +148,7 @@ public class HandyDialog {
      * @param message source
      * @param positiveButton string resource
      */
-    public void alertSimpleDialog(final int id, @DrawableRes int resIcon, String title, String message, @StringRes int positiveButton)
+    public void alertSimpleDialog(final long id, @DrawableRes int resIcon, String title, String message, @StringRes int positiveButton)
     {
         if( simple != null )      return;
 
@@ -184,7 +184,7 @@ public class HandyDialog {
      * @param positiveButton string resource
      * @param negativeButton string resource
      */
-    public void alertConfirmDialog(final int id, String message, @StringRes int positiveButton, @StringRes int negativeButton)
+    public void alertConfirmDialog(final long id, String message, @StringRes int positiveButton, @StringRes int negativeButton)
     {
         alertConfirmDialog(id, "", message, positiveButton, negativeButton);
     }
@@ -197,7 +197,7 @@ public class HandyDialog {
      * @param positiveButton string resource
      * @param negativeButton string resource
      */
-    public void alertConfirmDialog(final int id, String title, String message, @StringRes int positiveButton, @StringRes int negativeButton)
+    public void alertConfirmDialog(final long id, String title, String message, @StringRes int positiveButton, @StringRes int negativeButton)
     {
         alertConfirmDialog(id, 0, title, message, positiveButton, negativeButton);
     }
@@ -211,7 +211,7 @@ public class HandyDialog {
      * @param positiveButton string resource
      * @param negativeButton string resource
      */
-    public void alertConfirmDialog(final int id, @DrawableRes int resIcon, String title, String message, @StringRes int positiveButton, @StringRes int negativeButton)
+    public void alertConfirmDialog(final long id, @DrawableRes int resIcon, String title, String message, @StringRes int positiveButton, @StringRes int negativeButton)
     {
         if( confirm != null )      return;
 
@@ -253,7 +253,7 @@ public class HandyDialog {
      * @param id need to tag
      * @param items source
      */
-    public void alertListDialog(final int id, String[] items)
+    public void alertListDialog(final long id, String[] items)
     {
         alertListDialog(id, "", items);
     }
@@ -264,7 +264,7 @@ public class HandyDialog {
      * @param title source
      * @param items source
      */
-    public void alertListDialog(final int id, String title, String[] items)
+    public void alertListDialog(final long id, String title, String[] items)
     {
         alertListDialog(id, 0, title, items);
     }
@@ -276,7 +276,7 @@ public class HandyDialog {
      * @param title source
      * @param items source
      */
-    public void alertListDialog(final int id, @DrawableRes int resIcon, String title, String[] items)
+    public void alertListDialog(final long id, @DrawableRes int resIcon, String title, String[] items)
     {
         if( list != null )         return;
 
@@ -309,7 +309,7 @@ public class HandyDialog {
      * @param checkedItems source
      * @param positiveButton string resource
      */
-    public void alertMultiChoiceDialog(final int id, String[] items, boolean[] checkedItems, @StringRes int positiveButton)
+    public void alertMultiChoiceDialog(final long id, String[] items, boolean[] checkedItems, @StringRes int positiveButton)
     {
         alertMultiChoiceDialog(id, "", items, checkedItems, positiveButton);
     }
@@ -321,7 +321,7 @@ public class HandyDialog {
      * @param checkedItems source
      * @param positiveButton string resource
      */
-    public void alertMultiChoiceDialog(final int id, String title, String[] items, boolean[] checkedItems, @StringRes int positiveButton)
+    public void alertMultiChoiceDialog(final long id, String title, String[] items, boolean[] checkedItems, @StringRes int positiveButton)
     {
         alertMultiChoiceDialog(id, 0, title, items, checkedItems, positiveButton);
     }
@@ -334,7 +334,7 @@ public class HandyDialog {
      * @param checkedItems source
      * @param positiveButton string resource
      */
-    public void alertMultiChoiceDialog(final int id, @DrawableRes int resIcon, String title, String[] items, boolean[] checkedItems, @StringRes int positiveButton)
+    public void alertMultiChoiceDialog(final long id, @DrawableRes int resIcon, String title, String[] items, boolean[] checkedItems, @StringRes int positiveButton)
     {
         if( multiChoice != null )         return;
 

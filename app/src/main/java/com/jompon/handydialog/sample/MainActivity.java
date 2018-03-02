@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onConfirm(int id) {
+    public void onConfirm(long id) {
 
         if( id == btnSimple.getId() ){
             Toast.makeText(this, "Click Simple", Toast.LENGTH_LONG).show();
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onCancel(int id) {
+    public void onCancel(long id) {
 
         if( id == btnConfirm.getId() ){
             Toast.makeText(this, "Click Cancel!!", Toast.LENGTH_LONG).show();
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onItem(int id, int which) {
+    public void onItem(long id, int which) {
 
         if( id == btnList.getId() ){
             Toast.makeText(this, list[which], Toast.LENGTH_LONG).show();
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onChecked(int id, int which, boolean isChecked) {
+    public void onChecked(long id, int which, boolean isChecked) {
 
         if( id == btnMultiChoice.getId() ){
             Toast.makeText(this, list[which]+" = "+checkedItems[which], Toast.LENGTH_LONG).show();
