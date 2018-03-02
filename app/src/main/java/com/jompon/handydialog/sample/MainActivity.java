@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         HandyDialog.OnDialogConfirmClickListener,
         HandyDialog.OnDialogCancelClickListener,
         HandyDialog.OnDialogItemClickListener,
-        HandyDialog.OnDialogMultiChoiceListener {
+        HandyDialog.OnDialogCheckListener {
 
     private Button btnSimple;
     private Button btnConfirm;
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         handyDialog.setOnDialogConfirmClickListener(this);
         handyDialog.setOnDialogCancelClickListener(this);
         handyDialog.setOnDialogItemClickListener(this);
-        handyDialog.setOnDialogMultiChoiceListener(this);
+        handyDialog.setOnDialogCheckListener(this);
         btnSimple.setOnClickListener(this);
         btnConfirm.setOnClickListener(this);
         btnList.setOnClickListener(this);
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             handyDialog.alertListDialog(btnList.getId(), 0, "List Dialog", list);
         }
         if( v == btnMultiChoice ){
-            handyDialog.alertMultiClickDialog(btnMultiChoice.getId(), 0, "Multi Click Dialog", list, checkedItems, R.string.button_ok);
+            handyDialog.alertMultiChoiceDialog(btnMultiChoice.getId(), 0, "Multi Click Dialog", list, checkedItems, R.string.button_ok);
         }
         if( v == btnGps ){
             handyDialog.alertGPSDialog(android.R.drawable.ic_dialog_alert, "GPS Dialog", "Please open Gps", R.string.button_setting);

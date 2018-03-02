@@ -36,7 +36,7 @@ public class HandyDialog {
     private OnDialogConfirmClickListener onDialogConfirmClickListener;
     private OnDialogCancelClickListener onDialogCancelClickListener;
     private OnDialogItemClickListener onDialogItemClickListener;
-    private OnDialogMultiChoiceListener onDialogMultiChoiceListener;
+    private OnDialogCheckListener onDialogCheckListener;
 
     public interface OnDialogConfirmClickListener{
 
@@ -53,7 +53,7 @@ public class HandyDialog {
         void onItem(int id, int which);
     }
 
-    public interface  OnDialogMultiChoiceListener{
+    public interface  OnDialogCheckListener{
 
         void onChecked(int id, int which, boolean isChecked);
     }
@@ -73,9 +73,9 @@ public class HandyDialog {
         this.onDialogItemClickListener = onDialogItemClickListener;
     }
 
-    public void setOnDialogMultiChoiceListener(OnDialogMultiChoiceListener onDialogMultiChoiceListener)
+    public void setOnDialogCheckListener(OnDialogCheckListener onDialogCheckListener)
     {
-        this.onDialogMultiChoiceListener = onDialogMultiChoiceListener;
+        this.onDialogCheckListener = onDialogCheckListener;
     }
 
     public HandyDialog(Context context)
@@ -83,6 +83,34 @@ public class HandyDialog {
         this.context = context;
     }
 
+    /**
+     * Show simple alert dialog.
+     * @param message source
+     * @param positiveButton resource
+     */
+    public void alertSimpleDialog(String message, int positiveButton)
+    {
+        alertSimpleDialog("", message, positiveButton);
+    }
+
+    /**
+     * Show simple alert dialog.
+     * @param title source
+     * @param message source
+     * @param positiveButton resource
+     */
+    public void alertSimpleDialog(String title, String message, int positiveButton)
+    {
+        alertSimpleDialog(0, title, message, positiveButton);
+    }
+
+    /**
+     * Show simple alert dialog.
+     * @param resIcon source
+     * @param title source
+     * @param message source
+     * @param positiveButton resource
+     */
     public void alertSimpleDialog(int resIcon, String title, String message, int positiveButton)
     {
         if( simple != null )      return;
@@ -110,6 +138,14 @@ public class HandyDialog {
         dialog.show();
     }
 
+    /**
+     * Show simple alert dialog with confirm listener.
+     * @param id need to tag
+     * @param resIcon source
+     * @param title source
+     * @param message source
+     * @param positiveButton resource
+     */
     public void alertSimpleDialog(final int id, int resIcon, String title, String message, int positiveButton)
     {
         if( simple != null )      return;
@@ -139,6 +175,40 @@ public class HandyDialog {
         dialog.show();
     }
 
+    /**
+     * Show confirm alert dialog with confirm listener.
+     * @param id need to tag
+     * @param message source
+     * @param positiveButton resource
+     * @param negativeButton resource
+     */
+    public void alertConfirmDialog(final int id, String message, int positiveButton, int negativeButton)
+    {
+        alertConfirmDialog(id, "", message, positiveButton, negativeButton);
+    }
+
+    /**
+     * Show confirm alert dialog with confirm listener.
+     * @param id need to tag
+     * @param title source
+     * @param message source
+     * @param positiveButton resource
+     * @param negativeButton resource
+     */
+    public void alertConfirmDialog(final int id, String title, String message, int positiveButton, int negativeButton)
+    {
+        alertConfirmDialog(id, 0, title, message, positiveButton, negativeButton);
+    }
+
+    /**
+     * Show confirm alert dialog with confirm listener.
+     * @param id need to tag
+     * @param resIcon source
+     * @param title source
+     * @param message source
+     * @param positiveButton resource
+     * @param negativeButton resource
+     */
     public void alertConfirmDialog(final int id, int resIcon, String title, String message, int positiveButton, int negativeButton)
     {
         if( confirm != null )      return;
@@ -176,6 +246,34 @@ public class HandyDialog {
         dialog.show();
     }
 
+    /**
+     * Show list alert dialog with item listener.
+     * @param id need to tag
+     * @param items source
+     */
+    public void alertListDialog(final int id, String[] items)
+    {
+        alertListDialog(id, "", items);
+    }
+
+    /**
+     * Show list alert dialog with item listener.
+     * @param id need to tag
+     * @param title source
+     * @param items source
+     */
+    public void alertListDialog(final int id, String title, String[] items)
+    {
+        alertListDialog(id, 0, title, items);
+    }
+
+    /**
+     * Show list alert dialog with item listener.
+     * @param id need to tag
+     * @param resIcon source
+     * @param title source
+     * @param items source
+     */
     public void alertListDialog(final int id, int resIcon, String title, String[] items)
     {
         if( list != null )         return;
@@ -203,7 +301,38 @@ public class HandyDialog {
         dialog.show();
     }
 
-    public void alertMultiClickDialog(final int id, int resIcon, String title, String[] items, boolean[] checkedItems, int positiveButton)
+    /**
+     * Show multi choice alert dialog with multi choice listener.
+     * @param id need to tag
+     * @param checkedItems source
+     * @param positiveButton resource
+     */
+    public void alertMultiChoiceDialog(final int id, String[] items, boolean[] checkedItems, int positiveButton)
+    {
+        alertMultiChoiceDialog(id, "", items, checkedItems, positiveButton);
+    }
+
+    /**
+     * Show multi choice alert dialog with multi choice listener.
+     * @param id need to tag
+     * @param title source
+     * @param checkedItems source
+     * @param positiveButton resource
+     */
+    public void alertMultiChoiceDialog(final int id, String title, String[] items, boolean[] checkedItems, int positiveButton)
+    {
+        alertMultiChoiceDialog(id, 0, title, items, checkedItems, positiveButton);
+    }
+
+    /**
+     * Show multi choice alert dialog with multi choice listener.
+     * @param id need to tag
+     * @param resIcon source
+     * @param title source
+     * @param checkedItems source
+     * @param positiveButton resource
+     */
+    public void alertMultiChoiceDialog(final int id, int resIcon, String title, String[] items, boolean[] checkedItems, int positiveButton)
     {
         if( multiChoice != null )         return;
 
@@ -216,8 +345,8 @@ public class HandyDialog {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
 
-                if( onDialogMultiChoiceListener != null )
-                    onDialogMultiChoiceListener.onChecked(id, which, isChecked);
+                if( onDialogCheckListener != null )
+                    onDialogCheckListener.onChecked(id, which, isChecked);
             }
         });
         multiChoice.setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
@@ -241,6 +370,13 @@ public class HandyDialog {
         dialog.show();
     }
 
+    /**
+     * Show gps alert dialog with intent to gps setting
+     * @param resIcon source
+     * @param title source
+     * @param message source
+     * @param positiveButton resource
+     */
     public void alertGPSDialog(int resIcon, String title, String message, int positiveButton)
     {
         final LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -273,6 +409,13 @@ public class HandyDialog {
         dialog.show();
     }
 
+    /**
+     * Show permission alert dialog with intent to permission setting
+     * @param resIcon source
+     * @param title source
+     * @param message source
+     * @param positiveButton resource
+     */
     public void alertPermissionDialog(int resIcon, String title, String message, int positiveButton)
     {
         if( permission != null )      return;
@@ -303,6 +446,9 @@ public class HandyDialog {
         dialog.show();
     }
 
+    /**
+     * reset all alert dialog object to null
+     */
     public void clear( )
     {
         gps = null;
