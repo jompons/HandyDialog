@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
 
         if( v == btnSimple ){
-            handyDialog.alertSimpleDialog(btnSimple.getId(), "Simple Dialog", "Message", R.string.button_ok);
+            handyDialog.alertSimpleDialog((long) btnSimple.getId(), "Simple Dialog", "Message", R.string.button_ok);
         }
         if( v == btnConfirm ){
             handyDialog.alertConfirmDialog(btnConfirm.getId(), "Confirm Dialog", "Message", R.string.button_ok, R.string.button_cancel);
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             handyDialog.alertListDialog(btnList.getId(), "List Dialog", list);
         }
         if( v == btnMultiChoice ){
-            handyDialog.alertMultiChoiceDialog(btnMultiChoice.getId(), "Multi Click Dialog", list, checkedItems, R.string.button_ok);
+            handyDialog.alertMultiChoiceDialog(btnMultiChoice.getId(), "Multi Choice Dialog", list, checkedItems, R.string.button_ok);
         }
         if( v == btnGps ){
             handyDialog.alertGPSDialog(android.R.drawable.ic_dialog_alert, "GPS Dialog", "Please open Gps", R.string.button_setting);
